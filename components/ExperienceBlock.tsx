@@ -1,0 +1,52 @@
+"use client"
+import React from 'react'
+import {
+    useQuery,
+    useQueryClient,
+} from '@tanstack/react-query'
+
+interface Experience {
+    timeline: string;
+    company: string;
+    role: string;
+    description: string;
+    languages: string[];
+}
+
+const ExperienceBlock = () => {
+    useQueryClient(); // If not used, can be removed
+    const {data, isLoading, error} = useQuery({
+        queryKey: ['experience'],
+        queryFn: async () => {
+            const response = await fetch('/api/experience');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        },
+    });
+
+    if (isLoading && !error) return <p>Loading...</p>
+
+    return (
+        <div className="w-full max-w-2xl mx-auto px-2 sm:px-4 md:px-8">
+            {data?.message.map((experience: Experience, index: number) => {
+                return (
+                    <div key={index} className="mb-8 border border-green-300 p-2 sm:p-3 hover:rounded transition-all bg-green-300/10">
+                        <h3 className="text-lg sm:text-xl text-green-500 font-semibold">{experience.role} at {experience.company}</h3>
+                        <p className="text-xs sm:text-sm text-green-600">{experience.timeline}</p>
+                        <p className="mt-2 text-green-200 text-sm sm:text-base">{experience.description}</p>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                            {experience.languages.map((language: string, langIndex: number) => (
+                                <span key={langIndex} className="inline-block bg-green-300 text-gray-800 text-xs px-2 py-1 rounded mr-2 mb-2">
+                                    {language}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                )
+            })}
+        </div>
+    )
+}
+export default ExperienceBlock
