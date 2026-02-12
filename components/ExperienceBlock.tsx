@@ -13,9 +13,14 @@ interface Experience {
     languages: string[];
 }
 
-const ExperienceBlock = () => {
+interface ExperienceBlockProps {
+    experiences?: Experience[];
+}
+
+const ExperienceBlock: React.FC<ExperienceBlockProps> = ({ experiences }) => {
     useQueryClient(); // If not used, can be removed
-    const {data, isLoading, error} = useQuery({
+    // Always call useQuery, but only use its data if experiences is not provided
+    const { data, isLoading, error } = useQuery({
         queryKey: ['experience'],
         queryFn: async () => {
             const response = await fetch('/api/experience');
@@ -24,13 +29,15 @@ const ExperienceBlock = () => {
             }
             return response.json();
         },
+        enabled: !experiences,
     });
-
-    if (isLoading && !error) return <p>Loading...</p>
-
+    // Ensure message is always an array for mapping
+    const message: Experience[] = experiences || data?.message || [];
+    if (!message.length && isLoading && !error) return <p>Loading...</p>;
+    if (!message.length) return <p>No experience data found.</p>;
     return (
         <div className="w-full max-w-2xl mx-auto px-2 sm:px-4 md:px-8">
-            {data?.message.map((experience: Experience, index: number) => {
+            {message.map((experience: Experience, index: number) => {
                 return (
                     <div key={index} className="mb-8 border border-green-300 p-2 sm:p-3 hover:rounded transition-all bg-green-300/10">
                         <h3 className="text-lg sm:text-xl text-green-500 font-semibold">{experience.role} at {experience.company}</h3>
@@ -44,9 +51,9 @@ const ExperienceBlock = () => {
                             ))}
                         </div>
                     </div>
-                )
+                );
             })}
         </div>
-    )
+    );
 }
 export default ExperienceBlock

@@ -65,6 +65,20 @@ body {
   .container {
     padding: 8px;
   }
+  #fixedpanel {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    left: 0 !important;
+    top: 0 !important;
+    padding: 1.5rem 0 !important;
+  }
+  .rightpannel {
+    margin-left: 0 !important;
+    margin-top: 2rem !important;
+    height: auto !important;
+    max-height: none !important;
+  }
 }
 
 @media (max-width: 600px) {

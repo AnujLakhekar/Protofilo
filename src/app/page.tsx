@@ -2,7 +2,7 @@
 
 import React, {useEffect, useRef} from "react";
 import {Code, Github, Instagram, Linkedin, Mail} from "lucide-react";
-import ExperienceBlock from "../../components/ExperienceBlock";
+import ExperienceBlockComponent from "../../components/ExperienceBlock";
 import Projects from "../../components/projects";
 import Coonnect from "../../components/Coonnect";
 
@@ -184,7 +184,7 @@ export default function Home() {
                         Experience
                     </h2>
                     <div className={"p-2 flex justify-center items-center rounded-lg"}>
-                        <ExperienceBlock experiences={Experience}/>
+                        <ExperienceBlockComponent experiences={Experience}/>
                     </div>
                 </div>
 
@@ -207,3 +207,7 @@ export default function Home() {
         </div>
     );
 }
+
+/* Add responsive stacking for left/right panels on mobile */
+/* On mobile, left sidebar and right content should stack vertically, not side by side. */
+/* The current flex-col md:flex-row achieves this, but let's ensure the left sidebar is not fixed on mobile. */
