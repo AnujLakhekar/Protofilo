@@ -1,6 +1,7 @@
 import React, { useState, Children, useRef, useLayoutEffect, ReactNode, ButtonHTMLAttributes } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface StepperProps {
     children: ReactNode;
     initialStep?: number;
