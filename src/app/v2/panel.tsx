@@ -9,7 +9,7 @@ import Image from "next/image";
 const Mouth = () => {
     return (
         <div className={"absolute z-20 p-6 bg-purple-800  "}>
-            {/*<Image src={Face} alt={Face} />*/} coming soon !
+            {/*<Image src={Face} alt={Face} />*/} coming soo
         </div>
     )
 }
