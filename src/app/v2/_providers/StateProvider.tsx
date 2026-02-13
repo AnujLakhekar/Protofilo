@@ -4,7 +4,7 @@ import React, {PropsWithChildren} from 'react'
 const StateContext = React.createContext({});
 
 const StateProvider = ({children}: PropsWithChildren) => {
-    const [state, setState] = React.useState<String>(null);
+    const [state, setState] = React.useState<String>("");
     return (
         <StateContext.Provider value={{state, setState}}>{children}</StateContext.Provider>
     )
