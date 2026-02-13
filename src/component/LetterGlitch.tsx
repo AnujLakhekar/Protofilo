@@ -31,11 +31,15 @@ const LetterGlitch = ({
     return glitchColors[Math.floor(Math.random() * glitchColors.length)];
   };
 
-  const hexToRgb = hex => {
-    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, (m, r, g, b) => {
-      return r + r + g + g + b + b;
-    });
+    const hexToRgb = (hex: string) => {
+        const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+
+        hex = hex.replace(shorthandRegex, (_m, r, g, b) => {
+            return r + r + g + g + b + b;
+        });
+
+        // rest of your logic...
+    };
 
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result

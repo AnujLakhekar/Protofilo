@@ -3,13 +3,11 @@
 import React from 'react'
 import LetterGlitch from "@/component/LetterGlitch";
 import {useStateContext} from "@/app/v2/_providers/StateProvider";
-import Face from "./_asstes/mouth.png"
-import Image from "next/image";
 
 const Mouth = () => {
     return (
         <div className={"absolute z-20 p-6 bg-purple-800  "}>
-            {/*<Image src={Face} alt={Face} />*/} coming soo
+            {/* coming soon! */}
         </div>
     )
 }
@@ -19,10 +17,10 @@ const Controler = () => {
 
     React.useEffect(() => {
         setState("Start")
-    }, [])
+    }, [setState])
 
     function handleStates() {
-        if (state == "Start") {
+        if (state === "Start") {
             setState("Stop")
         } else {
             setState("Start")
@@ -30,24 +28,21 @@ const Controler = () => {
     }
 
     return (
-        <>
-            <div
-                className={"absolute z-20 left-30 p-10 flex flex-col gap-2 border border-green-700 bg-black border-b-2 border-b-green-400 "}>
-
-                <div>
-                    <h1 className={"font-bold text-green-500 font-display  text-[2.5rem]"}>Anuj
-                        Lakhe<span
-                            className={"selected"}>kar</span></h1>
-                    <hr className={"border-1 mt-2 mb-2 border-green-600"}/>
-                    <h2 className={"font-display"}>Developer.</h2>
-                    <div className={"m-4 w-[140px] text-center p-2 font-display bg-purple-600"}>
-                        <button onClick={handleStates}>
-                            {state}
-                        </button>
-                    </div>
+        <div
+            className={"absolute z-20 left-30 p-10 flex flex-col gap-2 border border-green-700 bg-black border-b-2 border-b-green-400 "}>
+            <div>
+                <h1 className={"font-bold text-green-500 font-display  text-[2.5rem]"}>Anuj
+                    Lakhe<span
+                        className={"selected"}>kar</span></h1>
+                <hr className={"border-1 mt-2 mb-2 border-green-600"}/>
+                <h2 className={"font-display"}>Developer.</h2>
+                <div className={"m-4 w-[140px] text-center p-2 font-display bg-purple-600"}>
+                    <button onClick={handleStates}>
+                        {state}
+                    </button>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
@@ -58,7 +53,6 @@ const EmbedingOannel = () => {
 }
 
 const Panel = () => {
-    const [state, setState] = React.useState<boolean>(false);
     return (
         <div className={"dark"}>
             <div className="min-h-screen flex justify-center items-center bg-black text-gray-100">
