@@ -2,9 +2,9 @@
 
 import React, {useEffect, useRef} from "react";
 import {Code, Github, Instagram, Linkedin, Mail} from "lucide-react";
-import ExperienceBlock from "../../components/ExperienceBlock";
-import Projects from "../../components/projects";
-import Coonnect from "../../components/Coonnect";
+import ExperienceBlock from "../../../components/ExperienceBlock";
+import Projects from "../../../components/projects";
+import Coonnect from "../../../components/Coonnect";
 
 
 export default function Home() {

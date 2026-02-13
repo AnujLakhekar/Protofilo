@@ -1,7 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 @import "tailwindcss";
 
 html {
     scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+    user-select: none;
 }
 
 :root {
@@ -9,6 +15,9 @@ html {
     --foreground: #383838;
     --active: #e5e5e5;
     --deactive: #a2a1a1;
+    --font-geist-sans: 'Geist Sans', sans-serif;
+    --font-geist-mono: 'Geist Mono', monospace;
+    --font-pixelify-sans: 'Pixelify Sans', sans-serif;
 }
 
 @theme {
@@ -18,6 +27,7 @@ html {
     --font-mono: var(--font-geist-mono);
     --color-active: var(--active);
     --color-deactive: var(--deactive);
+    --font-display: var(--font-pixelify-sans);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -71,4 +81,9 @@ body {
   .container {
     padding: 4px;
   }
+}
+
+
+.selected {
+    @apply bg-purple-600 text-white;
 }
