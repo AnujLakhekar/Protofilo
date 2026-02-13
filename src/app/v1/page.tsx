@@ -184,7 +184,7 @@ export default function Home() {
                         Experience
                     </h2>
                     <div className={"p-2 flex justify-center items-center rounded-lg"}>
-                        <ExperienceBlock experiences={Experience}/>
+                        <ExperienceBlock />
                     </div>
                 </div>
 
