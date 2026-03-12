@@ -63,6 +63,10 @@ export default function Home() {
     return (
         <div
             className="flex flex-col md:flex-row justify-center min-h-screen md:gap-[15rem] p-6 bg-background text-slate-300 font-sans">
+            {/* Fallback for blank page debugging */}
+            <div className="fixed top-0 left-0 w-full bg-red-500 text-white text-center z-50" style={{display: 'none'}} id="debug-fallback">
+                If you see only this, something is wrong with rendering.
+            </div>
 
             {/* LEFT SIDEBAR */}
             <div
