@@ -13,7 +13,7 @@ const navItems: NavItem[] = [
 export default function Home() {
   return (
     <div>
-      <main className="bg-white text-black">
+      <main className="bg-white text-black pt-20">
         {/* HERO SECTION (SIDE IMAGE) */}
         <section className="min-h-screen grid md:grid-cols-2 items-center px-6 md:px-16 gap-10">
           {/* LEFT TEXT */}
