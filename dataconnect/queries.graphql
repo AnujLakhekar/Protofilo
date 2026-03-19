@@ -1,0 +1,220 @@
+# ==================== USER QUERIES & MUTATIONS ====================
+
+# Query: Get user by email
+query GetUser($email: String!) {
+  user(email: $email) {
+    __id
+    displayName
+    email
+    bio
+    contactEmail
+    linkedinUrl
+    githubUrl
+    photoUrl
+  }
+}
+
+# Mutation: Upsert user profile
+mutation UpsertUser($input: UpsertUserInput!) {
+  upsertUser(input: $input) {
+    __id
+    displayName
+    email
+    bio
+    contactEmail
+    linkedinUrl
+    githubUrl
+    photoUrl
+  }
+}
+
+# ==================== PROJECT QUERIES & MUTATIONS ====================
+
+# Query: Get all projects for a user
+query GetProjects($uid: String!) {
+  projects(uid: $uid) {
+    __id
+    user {
+      email
+      displayName
+    }
+    title
+    description
+    createdAt
+    projectUrl
+    githubRepoUrl
+    displayOrder
+  }
+}
+
+# Query: Get single project
+query GetProject($uid: String!, $id: String!) {
+  project(uid: $uid, id: $id) {
+    __id
+    title
+    description
+    createdAt
+    projectUrl
+    githubRepoUrl
+    displayOrder
+  }
+}
+
+# Mutation: Create project
+mutation CreateProject($uid: String!, $input: CreateProjectInput!) {
+  createProject(uid: $uid, input: $input) {
+    __id
+    title
+    description
+    createdAt
+    projectUrl
+    githubRepoUrl
+    displayOrder
+  }
+}
+
+# Mutation: Update project
+mutation UpdateProject($uid: String!, $id: String!, $input: UpdateProjectInput!) {
+  updateProject(uid: $uid, id: $id, input: $input) {
+    __id
+    title
+    description
+    projectUrl
+    githubRepoUrl
+    displayOrder
+  }
+}
+
+# Mutation: Delete project
+mutation DeleteProject($uid: String!, $id: String!) {
+  deleteProject(uid: $uid, id: $id)
+}
+
+# ==================== SKILL QUERIES & MUTATIONS ====================
+
+# Query: Get all skills for a user
+query GetSkills($uid: String!) {
+  skills(uid: $uid) {
+    __id
+    user {
+      email
+    }
+    name
+    category
+    proficiency
+  }
+}
+
+# Mutation: Create skill
+mutation CreateSkill($uid: String!, $input: CreateSkillInput!) {
+  createSkill(uid: $uid, input: $input) {
+    __id
+    name
+    category
+    proficiency
+  }
+}
+
+# Mutation: Update skill
+mutation UpdateSkill($uid: String!, $id: String!, $input: UpdateSkillInput!) {
+  updateSkill(uid: $uid, id: $id, input: $input) {
+    __id
+    name
+    category
+    proficiency
+  }
+}
+
+# Mutation: Delete skill
+mutation DeleteSkill($uid: String!, $id: String!) {
+  deleteSkill(uid: $uid, id: $id)
+}
+
+# ==================== TAG QUERIES & MUTATIONS ====================
+
+# Query: Get all tags
+query GetAllTags {
+  tags {
+    __id
+    name
+  }
+}
+
+# Mutation: Create tag
+mutation CreateTag($name: String!) {
+  createTag(name: $name) {
+    __id
+    name
+  }
+}
+
+# ==================== PROJECT MEDIA QUERIES & MUTATIONS ====================
+
+# Query: Get project media
+query GetProjectMedia($projectId: String!) {
+  projectMedia(projectId: $projectId) {
+    __id
+    mediaUrl
+    mediaType
+    caption
+    displayOrder
+  }
+}
+
+# Mutation: Add project media
+mutation AddProjectMedia($projectId: String!, $input: CreateProjectMediaInput!) {
+  addProjectMedia(projectId: $projectId, input: $input) {
+    __id
+    mediaUrl
+    mediaType
+    caption
+    displayOrder
+  }
+}
+
+# Mutation: Delete project media
+mutation DeleteProjectMedia($projectId: String!, $mediaUrl: String!) {
+  deleteProjectMedia(projectId: $projectId, mediaUrl: $mediaUrl)
+}
+
+# ==================== PROJECT TAG MUTATIONS ====================
+
+# Mutation: Link project to tag
+mutation LinkProjectTag($projectId: String!, $tagName: String!) {
+  linkProjectTag(projectId: $projectId, tagName: $tagName) {
+    project {
+      __id
+      title
+    }
+    tag {
+      __id
+      name
+    }
+  }
+}
+
+# Mutation: Unlink project from tag
+mutation UnlinkProjectTag($projectId: String!, $tagName: String!) {
+  unlinkProjectTag(projectId: $projectId, tagName: $tagName)
+}
+
+# ==================== SKILL TAG MUTATIONS ====================
+
+# Mutation: Link skill to tag
+mutation LinkSkillTag($skillId: String!, $tagName: String!) {
+  linkSkillTag(skillId: $skillId, tagName: $tagName) {
+    skill {
+      __id
+      name
+    }
+    tag {
+      __id
+      name
+    }
+  }
+}
+
+# Mutation: Unlink skill from tag
+mutation UnlinkSkillTag($skillId: String!, $tagName: String!) {
+  unlinkSkillTag(skillId: $skillId, tagName: $tagName)
+}

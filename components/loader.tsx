@@ -1,77 +1,47 @@
 "use client";
-import { useEffect, useState } from "react";
-
 export default function EyeLoader() {
-  const [blink, setBlink] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBlink(true);
-      setTimeout(() => setBlink(false), 180);
-    }, 2200);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div className="container">
-      <div className="eyes">
-        <div className={`eye ${blink ? "blink" : ""}`}>
-          <div className="pupil" />
-        </div>
-        <div className={`eye ${blink ? "blink" : ""}`}>
-          <div className="pupil" />
-        </div>
+    <div className="loader-root">
+      <div className="loader-inner">
+        <div className="loader-dot" aria-hidden />
       </div>
 
       <style jsx>{`
-        .container {
-          position: fixed;
-          inset: 0;
+        .loader-root {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
           background: #ffffff;
+        }
+
+        .loader-inner {
           display: flex;
           align-items: center;
           justify-content: center;
         }
 
-        .eyes {
-          display: flex;
-          gap: 40px;
-        }
-
-        .eye {
-          width: 90px;
-          height: 90px;
-          background: #000;
-          border-radius: 28px; /* rounded-square like your image */
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-          transform-origin: center;
-        }
-
-        .pupil {
-          width: 28px;
-          height: 28px;
-          background: #fff;
+        .loader-dot {
+          width: 16px;
+          height: 16px;
+          background: #15161b;
           border-radius: 50%;
+          animation: pulseDot 0.9s ease-in-out infinite;
         }
 
-        /* Blink animation */
-        .blink {
-          animation: blinkAnim 0.18s ease-in-out;
-        }
-
-        @keyframes blinkAnim {
+        @keyframes pulseDot {
           0% {
-            transform: scaleY(1);
+            opacity: 0.45;
+            transform: scale(0.82);
           }
           50% {
-            transform: scaleY(0.1);
+            opacity: 1;
+            transform: scale(1);
           }
           100% {
-            transform: scaleY(1);
+            opacity: 0.45;
+            transform: scale(0.82);
           }
         }
       `}</style>

@@ -1,0 +1,130 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  user(email: String!): User
+  projects(uid: String!): [Project!]!
+  project(uid: String!, id: String!): Project
+  skills(uid: String!): [Skill!]!
+  tags: [Tag!]!
+  projectMedia(projectId: String!): [ProjectMedia!]!
+}
+
+type Mutation {
+  upsertUser(input: UpsertUserInput!): User!
+  createProject(uid: String!, input: CreateProjectInput!): Project!
+  updateProject(uid: String!, id: String!, input: UpdateProjectInput!): Project!
+  deleteProject(uid: String!, id: String!): Boolean!
+  
+  createSkill(uid: String!, input: CreateSkillInput!): Skill!
+  updateSkill(uid: String!, id: String!, input: UpdateSkillInput!): Skill!
+  deleteSkill(uid: String!, id: String!): Boolean!
+  
+  createTag(name: String!): Tag!
+  
+  addProjectMedia(projectId: String!, input: CreateProjectMediaInput!): ProjectMedia!
+  deleteProjectMedia(projectId: String!, mediaUrl: String!): Boolean!
+  
+  linkProjectTag(projectId: String!, tagName: String!): ProjectTag!
+  unlinkProjectTag(projectId: String!, tagName: String!): Boolean!
+  
+  linkSkillTag(skillId: String!, tagName: String!): SkillTag!
+  unlinkSkillTag(skillId: String!, tagName: String!): Boolean!
+}
+
+type User @table {
+  displayName: String!
+  email: String!
+  bio: String
+  contactEmail: String
+  linkedinUrl: String
+  githubUrl: String
+  photoUrl: String
+}
+
+type Skill @table {
+  user: User!
+  name: String!
+  category: String
+  proficiency: String
+}
+
+type Project @table {
+  user: User!
+  title: String!
+  description: String!
+  createdAt: Timestamp!
+  projectUrl: String
+  githubRepoUrl: String
+  displayOrder: Int
+}
+
+type ProjectMedia @table {
+  project: Project!
+  mediaUrl: String!
+  mediaType: String!
+  caption: String
+  displayOrder: Int
+}
+
+type Tag @table {
+  name: String!
+}
+
+type ProjectTag @table(key: ["project", "tag"]) {
+  project: Project!
+  tag: Tag!
+}
+
+type SkillTag @table(key: ["skill", "tag"]) {
+  skill: Skill!
+  tag: Tag!
+}
+
+input UpsertUserInput {
+  email: String!
+  displayName: String!
+  bio: String
+  contactEmail: String
+  linkedinUrl: String
+  githubUrl: String
+  photoUrl: String
+}
+
+input CreateProjectInput {
+  title: String!
+  description: String!
+  projectUrl: String
+  githubRepoUrl: String
+  displayOrder: Int
+}
+
+input UpdateProjectInput {
+  title: String
+  description: String
+  projectUrl: String
+  githubRepoUrl: String
+  displayOrder: Int
+}
+
+input CreateSkillInput {
+  name: String!
+  category: String
+  proficiency: String
+}
+
+input UpdateSkillInput {
+  name: String
+  category: String
+  proficiency: String
+}
+
+input CreateProjectMediaInput {
+  mediaUrl: String!
+  mediaType: String!
+  caption: String
+  displayOrder: Int
+  skills: [String!]!
+}

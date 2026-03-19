@@ -1,0 +1,7 @@
+connector: "protofilo-connector"
+authPolicy:
+  - provider: "GOOGLE_OAUTH"
+    rules:
+      - allow: "public"
+
+dataConnectYamlVersion: 1
