@@ -29,7 +29,7 @@ interface AboutPanelProps {
 }
 
 const AboutPanel = ({ 
-  intro = "Fuelled by a passion for developing projects, I have a deep desire to excel and continuously improve in my work. Learn more about my journey below.",
+  intro = "Fuelled by a passion for developing projects, I have a deep desire to excel and continuously improve in my work also a open designer sideby is my drawing. Learn more about my journey below.",
   careerSummary = "Always up for a challenge, I have worked for schologama team and was a member of one of the TechSpot as cohead. From there, I worked my way up to web developer and Team Lead where I oversaw the development of multiple web apps. Currently, I am working with game devlopement and Learning ai and other things like blender , photoshop and fl studio to inscrease my skillset and to be able to work on more projects.",
   skills: skillsList = skills
 }: AboutPanelProps) => {
@@ -49,7 +49,7 @@ const AboutPanel = ({
             <div className="portrait-glow" aria-hidden />
             <div className="portrait-stage">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/anuj.png" alt="Anuj Lakhekar" className="portrait" />
+              <img src="/acrane.png" alt="Anuj Lakhekar" className="portrait" />
             </div>
             <p className="portrait-tag">Full-Stack Developer</p>
           </div>
