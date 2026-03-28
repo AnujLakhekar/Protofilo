@@ -8,6 +8,7 @@ import {
   deleteProject,
   type Project,
 } from "@/lib/firestoreService";
+import Skeleton from "@/components/ui/skeleton";
 
 export default function ProjectManager() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -93,7 +94,18 @@ export default function ProjectManager() {
   };
 
   if (loading) {
-    return <div className="text-center py-8">Loading projects...</div>;
+    return (
+      <div className="space-y-4 py-4">
+        <Skeleton className="h-10 w-56" />
+        <Skeleton className="h-14 w-full" />
+        <Skeleton className="h-28 w-full" />
+        <div className="grid grid-cols-2 gap-4">
+          <Skeleton className="h-12 w-full" />
+          <Skeleton className="h-12 w-full" />
+        </div>
+        <Skeleton className="h-44 w-full" />
+      </div>
+    );
   }
 
   return (

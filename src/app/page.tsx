@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getFeaturedProjects, getCurrentState, type FeaturedProject, type CurrentState } from "@/lib/firestoreService";
+import Skeleton from "@/components/ui/skeleton";
 
 const skills = [
   "React",
@@ -87,6 +88,28 @@ export default function Home() {
     createdAt: Date.now(),
     status: "Live" as const,
   }));
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-white px-6 py-12 md:px-16">
+        <div className="mx-auto max-w-6xl space-y-6">
+          <Skeleton className="h-12 w-1/2" />
+          <Skeleton className="h-20 w-full" />
+          <div className="grid gap-4 md:grid-cols-4">
+            <Skeleton className="h-24 w-full" />
+            <Skeleton className="h-24 w-full" />
+            <Skeleton className="h-24 w-full" />
+            <Skeleton className="h-24 w-full" />
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            <Skeleton className="h-44 w-full" />
+            <Skeleton className="h-44 w-full" />
+            <Skeleton className="h-44 w-full" />
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <div>
@@ -244,7 +267,7 @@ export default function Home() {
           </p>
 
           <div className="mt-6 flex items-center justify-center gap-3">
-            <Link href="https://linkedin.com/in/anujlakhekar" target="_blank">
+            <Link href="https://www.linkedin.com/in/anuj-lakhekar-72a43033b" target="_blank">
               <button className="bg-black text-white px-8 py-3 rounded-full hover:opacity-80 transition">
                 Get In Touch
               </button>

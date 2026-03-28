@@ -6,6 +6,7 @@ import {
   updateAboutData,
   type AboutData,
 } from "@/lib/firestoreService";
+import Skeleton from "@/components/ui/skeleton";
 
 export default function AboutManager() {
   const [aboutData, setAboutData] = useState<AboutData | null>(null);
@@ -57,7 +58,15 @@ export default function AboutManager() {
   };
 
   if (loading) {
-    return <div className="text-center py-8">Loading about data...</div>;
+    return (
+      <div className="space-y-4 py-4">
+        <Skeleton className="h-10 w-64" />
+        <Skeleton className="h-28 w-full" />
+        <Skeleton className="h-40 w-full" />
+        <Skeleton className="h-24 w-full" />
+        <Skeleton className="h-10 w-44" />
+      </div>
+    );
   }
 
   return (

@@ -43,6 +43,10 @@ function getDiscordServerInviteUrl(): URL | null {
 }
 
 function getInviteTarget(appKey: string, inviteType: string | null): URL | null {
+  if (appKey === "bot" || appKey.includes("bot")) {
+    return getDiscordBotInviteUrl();
+  }
+
   if (appKey === "discord") {
     if (inviteType === "server") {
       return getDiscordServerInviteUrl();

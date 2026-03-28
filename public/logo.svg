@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 500 500">
+  <!-- Generator: Adobe Illustrator 29.8.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 2)  -->
+  <defs>
+    <style>
+      .st0 {
+        stroke: #ffecbe;
+      }
+
+      .st0, .st1 {
+        fill: #ffecbe;
+        stroke-miterlimit: 10;
+      }
+
+      .st1 {
+        stroke: #231f20;
+      }
+
+      .st2 {
+        fill: #e13835;
+        font-family: MyriadPro-Regular, 'Myriad Pro';
+        font-size: 408.72px;
+      }
+    </style>
+  </defs>
+  <rect class="st1" x="-22.02" y="-3.25" width="544.19" height="503.49"/>
+  <g>
+    <text class="st2" transform="translate(80.82 373.16) scale(1.31 1)"><tspan x="0" y="0">A</tspan></text>
+    <polygon class="st0" points="216.75 97.68 241.77 121.07 272.94 97.68 216.75 97.68"/>
+    <polygon class="st0" points="181.81 270.51 217.77 259.16 190.63 258.72 181.81 270.51"/>
+    <polygon class="st0" points="298.09 258.72 309.69 268.1 283.32 266.94 272.53 259.16 298.09 258.72"/>
+    <polygon class="st0" points="119.49 373.5 152.67 348.63 142.36 373.16 119.49 373.5"/>
+    <polygon class="st0" points="376.78 330.32 368.79 373.5 397.2 374.3 376.78 330.32"/>
+  </g>
+</svg>

@@ -8,6 +8,7 @@ import {
   deleteFeaturedProject,
   type FeaturedProject,
 } from "@/lib/firestoreService";
+import Skeleton from "@/components/ui/skeleton";
 
 export default function FeaturedProjectManager() {
   const [projects, setProjects] = useState<FeaturedProject[]>([]);
@@ -80,7 +81,15 @@ export default function FeaturedProjectManager() {
   };
 
   if (loading) {
-    return <div className="text-center py-8">Loading featured projects...</div>;
+    return (
+      <div className="space-y-4 py-4">
+        <Skeleton className="h-10 w-72" />
+        <Skeleton className="h-14 w-full" />
+        <Skeleton className="h-28 w-full" />
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-44 w-full" />
+      </div>
+    );
   }
 
   return (

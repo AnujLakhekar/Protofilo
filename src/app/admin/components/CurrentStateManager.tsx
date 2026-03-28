@@ -6,6 +6,7 @@ import {
   updateCurrentState,
   type CurrentState,
 } from "@/lib/firestoreService";
+import Skeleton from "@/components/ui/skeleton";
 
 export default function CurrentStateManager() {
   const [currentState, setCurrentState] = useState<CurrentState | null>(null);
@@ -48,7 +49,15 @@ export default function CurrentStateManager() {
   };
 
   if (loading) {
-    return <div className="text-center py-8">Loading current status...</div>;
+    return (
+      <div className="space-y-4 py-4">
+        <Skeleton className="h-10 w-72" />
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-36 w-full" />
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-10 w-36" />
+      </div>
+    );
   }
 
   return (
