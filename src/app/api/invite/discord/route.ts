@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export function GET() {
+function getDiscordBotInviteUrl(): URL {
   const clientId =
     process.env.DISCORD_CLIENT_ID?.trim() || "1487323599642562590";
 
@@ -14,5 +14,37 @@ export function GET() {
     `https://discord.com/oauth2/authorize?${params.toString()}`,
   );
 
-  return NextResponse.redirect(inviteUrl);
+  return inviteUrl;
+}
+
+function getDiscordServerInviteUrl(): URL | null {
+  const value =
+    process.env.DISCORD_SERVER_INVITE_URL ||
+    process.env.NEXT_PUBLIC_DISCORD_SERVER_URL;
+
+  if (!value) return null;
+
+  try {
+    const parsed = new URL(value.trim());
+    return parsed.protocol === "https:" ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+export function GET(request: Request) {
+  const type = new URL(request.url).searchParams.get("type")?.toLowerCase();
+  const target =
+    type === "server" ? getDiscordServerInviteUrl() : getDiscordBotInviteUrl();
+
+  if (!target) {
+    return NextResponse.json(
+      {
+        error: "Discord server invite URL is not configured",
+      },
+      { status: 404 },
+    );
+  }
+
+  return NextResponse.redirect(target);
 }

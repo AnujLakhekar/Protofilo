@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description:
     "My personal website showcasing my projects, experience, and contact information. Built with Next.js and Tailwind CSS.",
   icons: {
-    icon: "rounded-logo.png",
+    icon: "logo.png",
   },
 };
 

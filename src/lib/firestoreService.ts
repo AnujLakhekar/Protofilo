@@ -10,7 +10,7 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
-import { db } from "./firebase";
+import { auth, db } from "./firebase";
 
 // Types
 export interface Project {
@@ -48,6 +48,22 @@ export interface AboutData {
   updatedAt: number;
 }
 
+const getAllowedAdminEmails = (): string[] => {
+  return (process.env.NEXT_PUBLIC_ADMIN_EMAILS || "")
+    .split(",")
+    .map((email) => email.trim().toLowerCase())
+    .filter(Boolean);
+};
+
+const assertAdminWriteAccess = () => {
+  const allowedEmails = getAllowedAdminEmails();
+  const currentEmail = auth.currentUser?.email?.toLowerCase();
+
+  if (!currentEmail || !allowedEmails.includes(currentEmail)) {
+    throw new Error("Unauthorized admin write operation");
+  }
+};
+
 // Projects Collection
 export const getProjects = async (): Promise<Project[]> => {
   try {
@@ -65,6 +81,7 @@ export const getProjects = async (): Promise<Project[]> => {
 
 export const addProject = async (project: Omit<Project, "id" | "createdAt">) => {
   try {
+    assertAdminWriteAccess();
     const docRef = await addDoc(collection(db, "projects"), {
       ...project,
       createdAt: Date.now(),
@@ -81,6 +98,7 @@ export const updateProject = async (
   project: Partial<Project>
 ) => {
   try {
+    assertAdminWriteAccess();
     await updateDoc(doc(db, "projects", id), project);
   } catch (error) {
     console.error("Error updating project:", error);
@@ -90,6 +108,7 @@ export const updateProject = async (
 
 export const deleteProject = async (id: string) => {
   try {
+    assertAdminWriteAccess();
     await deleteDoc(doc(db, "projects", id));
   } catch (error) {
     console.error("Error deleting project:", error);
@@ -118,6 +137,7 @@ export const addFeaturedProject = async (
   project: Omit<FeaturedProject, "id" | "createdAt">
 ) => {
   try {
+    assertAdminWriteAccess();
     const docRef = await addDoc(collection(db, "featuredProjects"), {
       ...project,
       createdAt: Date.now(),
@@ -134,6 +154,7 @@ export const updateFeaturedProject = async (
   project: Partial<FeaturedProject>
 ) => {
   try {
+    assertAdminWriteAccess();
     await updateDoc(doc(db, "featuredProjects", id), project);
   } catch (error) {
     console.error("Error updating featured project:", error);
@@ -143,6 +164,7 @@ export const updateFeaturedProject = async (
 
 export const deleteFeaturedProject = async (id: string) => {
   try {
+    assertAdminWriteAccess();
     await deleteDoc(doc(db, "featuredProjects", id));
   } catch (error) {
     console.error("Error deleting featured project:", error);
@@ -166,6 +188,7 @@ export const getCurrentState = async (): Promise<CurrentState | null> => {
 
 export const updateCurrentState = async (state: Omit<CurrentState, "id" | "updatedAt">) => {
   try {
+    assertAdminWriteAccess();
     await setDoc(doc(db, "portfolio", "currentState"), {
       ...state,
       updatedAt: Date.now(),
@@ -192,6 +215,7 @@ export const getAboutData = async (): Promise<AboutData | null> => {
 
 export const updateAboutData = async (about: Omit<AboutData, "id" | "updatedAt">) => {
   try {
+    assertAdminWriteAccess();
     await setDoc(doc(db, "portfolio", "about"), {
       ...about,
       updatedAt: Date.now(),
