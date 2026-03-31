@@ -12,9 +12,10 @@ import ProjectManager from "./components/ProjectManager";
 import FeaturedProjectManager from "./components/FeaturedProjectManager";
 import CurrentStateManager from "./components/CurrentStateManager";
 import AboutManager from "./components/AboutManager";
+import DocsBlogManager from "./components/DocsBlogManager";
 import { auth } from "@/lib/firebase";
 
-type TabType = "projects" | "featured" | "current" | "about";
+type TabType = "projects" | "featured" | "current" | "about" | "docs";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<TabType>("projects");
@@ -156,6 +157,16 @@ export default function AdminDashboard() {
           >
             About Me
           </button>
+          <button
+            onClick={() => setActiveTab("docs")}
+            className={`px-6 py-3 font-semibold transition-all ${
+              activeTab === "docs"
+                ? "border-b-2 border-black text-black"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            Docs and Blogs
+          </button>
         </div>
 
         {/* Tab Content */}
@@ -164,6 +175,7 @@ export default function AdminDashboard() {
           {activeTab === "featured" && <FeaturedProjectManager />}
           {activeTab === "current" && <CurrentStateManager />}
           {activeTab === "about" && <AboutManager />}
+          {activeTab === "docs" && <DocsBlogManager />}
         </div>
       </div>
     </div>

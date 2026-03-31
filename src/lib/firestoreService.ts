@@ -48,6 +48,25 @@ export interface AboutData {
   updatedAt: number;
 }
 
+export interface BlogDocBlock {
+  type: "heading" | "paragraph" | "code" | "list";
+  content?: string;
+  items?: string[];
+  language?: string;
+}
+
+export interface BlogDoc {
+  id?: string;
+  sid: string;
+  appName: string;
+  title: string;
+  summary: string;
+  tags: string[];
+  blocks: BlogDocBlock[];
+  createdAt: number;
+  updatedAt: number;
+}
+
 const getAllowedAdminEmails = (): string[] => {
   return (process.env.NEXT_PUBLIC_ADMIN_EMAILS || "")
     .split(",")
@@ -222,6 +241,77 @@ export const updateAboutData = async (about: Omit<AboutData, "id" | "updatedAt">
     });
   } catch (error) {
     console.error("Error updating about data:", error);
+    throw error;
+  }
+};
+
+// Blog Docs Collection
+export const getBlogDocs = async (): Promise<BlogDoc[]> => {
+  try {
+    const q = query(collection(db, "blogDocs"), orderBy("createdAt", "desc"));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as BlogDoc));
+  } catch (error) {
+    console.error("Error fetching blog docs:", error);
+    return [];
+  }
+};
+
+export const getBlogDocBySid = async (sid: string): Promise<BlogDoc | null> => {
+  try {
+    const docSnap = await getDoc(doc(db, "blogDocs", sid));
+    if (!docSnap.exists()) return null;
+    return { id: docSnap.id, ...docSnap.data() } as BlogDoc;
+  } catch (error) {
+    console.error("Error fetching blog doc:", error);
+    return null;
+  }
+};
+
+export const addBlogDoc = async (
+  blogDoc: Omit<BlogDoc, "id" | "createdAt" | "updatedAt">
+) => {
+  try {
+    assertAdminWriteAccess();
+    const now = Date.now();
+    const sid = blogDoc.sid.trim().toLowerCase();
+
+    await setDoc(doc(db, "blogDocs", sid), {
+      ...blogDoc,
+      sid,
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    return sid;
+  } catch (error) {
+    console.error("Error adding blog doc:", error);
+    throw error;
+  }
+};
+
+export const updateBlogDoc = async (
+  sid: string,
+  blogDoc: Partial<Omit<BlogDoc, "id" | "sid" | "createdAt">>
+) => {
+  try {
+    assertAdminWriteAccess();
+    await updateDoc(doc(db, "blogDocs", sid), {
+      ...blogDoc,
+      updatedAt: Date.now(),
+    });
+  } catch (error) {
+    console.error("Error updating blog doc:", error);
+    throw error;
+  }
+};
+
+export const deleteBlogDoc = async (sid: string) => {
+  try {
+    assertAdminWriteAccess();
+    await deleteDoc(doc(db, "blogDocs", sid));
+  } catch (error) {
+    console.error("Error deleting blog doc:", error);
     throw error;
   }
 };
