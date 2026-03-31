@@ -17,6 +17,16 @@ export const pythonAgentDemoDoc: BlogDoc = {
       content:
         "A local-first coding and task agent with multi-model support (Ollama, OpenAI, Gemini), operator-style terminal UI, controlled tool execution, extensible tools, and short-term task memory.",
     },
+    { type: "heading", content: "Repository" },
+    {
+      type: "paragraph",
+      content: "GitHub repository: https://github.com/AnujLakhekar/Agent.git",
+    },
+    {
+      type: "code",
+      language: "bash",
+      content: "git clone https://github.com/AnujLakhekar/Agent.git",
+    },
     { type: "heading", content: "1) Quick Start" },
     {
       type: "code",

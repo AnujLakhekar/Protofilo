@@ -9,6 +9,11 @@ import { pythonAgentDemoDoc, pythonAgentDemoSid } from "@/lib/docsDemo";
 export default function DocsPage() {
   const [docs, setDocs] = useState<BlogDoc[]>([]);
   const [loading, setLoading] = useState(true);
+  const [copiedSid, setCopiedSid] = useState<string | null>(null);
+
+  const demoRepoUrl = "https://github.com/AnujLakhekar/Agent.git";
+  const demoReadmeUrl = "https://github.com/AnujLakhekar/Agent/blob/main/README.md";
+  const demoCloneCommand = "git clone https://github.com/AnujLakhekar/Agent.git";
 
   useEffect(() => {
     const loadDocs = async () => {
@@ -29,6 +34,22 @@ export default function DocsPage() {
     const hasDemo = docs.some((item) => item.sid === pythonAgentDemoSid);
     return hasDemo ? docs : [pythonAgentDemoDoc, ...docs];
   }, [docs]);
+
+  const copyCloneCommand = async (sid: string) => {
+    if (typeof navigator === "undefined" || !navigator.clipboard) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(demoCloneCommand);
+      setCopiedSid(sid);
+      window.setTimeout(() => {
+        setCopiedSid((current) => (current === sid ? null : current));
+      }, 1800);
+    } catch (error) {
+      console.error("Failed to copy git clone command:", error);
+    }
+  };
 
   if (loading) {
     return (
@@ -75,6 +96,34 @@ export default function DocsPage() {
               >
                 Read documentation
               </Link>
+
+              {doc.sid === pythonAgentDemoSid ? (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <a
+                    href={demoRepoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-800"
+                  >
+                    Open GitHub
+                  </a>
+                  <a
+                    href={demoReadmeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-800"
+                  >
+                    Open Other Docs
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => copyCloneCommand(doc.sid)}
+                    className="inline-flex items-center rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-800"
+                  >
+                    {copiedSid === doc.sid ? "Copied git clone" : "Copy git clone"}
+                  </button>
+                </div>
+              ) : null}
             </article>
           ))}
         </div>
