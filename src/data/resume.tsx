@@ -65,7 +65,8 @@ export const DATA = {
       },
     },
   },
-  work: [],
+  // Solves the AccordionItem 'company' property of never type error
+  work: [] as any[], 
   education: [
     {
       school: "JDCOEM",
@@ -129,7 +130,7 @@ export const DATA = {
         "Developed a mobile application which delivered bedtime stories to children using augmented reality.",
       image: "./ycc.png",
       mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2019/mlh-trust-badge-2019-white.svg",
-      links: [] as any[], // Fixes the "never[]" type issue
+      links: [] as any[], // Solves the 'href' property of never type error
     },
     {
       title: "HackWack Hackathon",
@@ -139,7 +140,7 @@ export const DATA = {
         "Developed an google based pc sequrity manager ",
       image: "./sb.png",
       mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2019/mlh-trust-badge-2019-white.svg",
-      links: [] as any[], // Fixes the "never[]" type issue
+      links: [] as any[], // Solves the 'href' property of never type error
     },
   ],
 } as const;
