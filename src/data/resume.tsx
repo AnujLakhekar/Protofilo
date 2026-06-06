@@ -1,3 +1,4 @@
+import React from "react";
 import { Icons } from "@/components/icons";
 import { Gamepad, HomeIcon, NotebookIcon } from "lucide-react";
 import { ReactLight } from "@/components/ui/svgs/reactLight";
@@ -44,45 +45,27 @@ export const DATA = {
         icon: Icons.github,
         navbar: true,
       },
-
       LinkedIn: {
         name: "LinkedIn",
         url: "https://www.linkedin.com/in/anuj-lakhekar-72a43033b/",
         icon: Icons.linkedin,
-
         navbar: true,
       },
       X: {
         name: "X",
         url: "https://x.com/AnujLakhekar",
         icon: Icons.x,
-
         navbar: true,
       },
       email: {
         name: "Send Email",
         url: "#",
         icon: Icons.email,
-
         navbar: false,
       },
     },
   },
-
-  work: [
-    // {
-    //   company: "Atomic Finance",
-    //   href: "https://atomic.finance",
-    //   badges: [],
-    //   location: "Remote",
-    //   title: "Bitcoin Protocol Engineer",
-    //   logoUrl: "/atomic.png",
-    //   start: "May 2021",
-    //   end: "Oct 2022",
-    //   description:
-    //     "Implemented the Bitcoin discreet log contract (DLC) protocol specifications as an open source Typescript SDK. Dockerized all microservices and setup production kubernetes cluster. Architected a data lake using AWS S3 and Athena for historical backtesting of bitcoin trading strategies. Built a mobile app using react native and typescript.",
-    // },
-  ],
+  work: [],
   education: [
     {
       school: "JDCOEM",
@@ -144,10 +127,9 @@ export const DATA = {
       location: "YCC, Nagpur",
       description:
         "Developed a mobile application which delivered bedtime stories to children using augmented reality.",
-      image:
-        "./ycc.png",
+      image: "./ycc.png",
       mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2019/mlh-trust-badge-2019-white.svg",
-      links: [],
+      links: [] as any[], // Fixes the "never[]" type issue
     },
     {
       title: "HackWack Hackathon",
@@ -155,10 +137,9 @@ export const DATA = {
       location: "YCC, Nagpur",
       description:
         "Developed an google based pc sequrity manager ",
-      image:
-        "./sb.png",
+      image: "./sb.png",
       mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2019/mlh-trust-badge-2019-white.svg",
-      links: [],
+      links: [] as any[], // Fixes the "never[]" type issue
     },
   ],
 } as const;
