@@ -134,11 +134,11 @@ export const DATA = {
     },
     {
       title: "HackWack Hackathon",
-      dates: "Feb 2026 16 17",
-      location: "YCC, Nagpur",
+      dates: "Feb 2026 16-17",
+      location: "SBJAIN, Nagpur",
       description:
         "Developed an google based pc sequrity manager ",
-      image: "./sb.png",
+      image: "./Untitled.png",
       mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2019/mlh-trust-badge-2019-white.svg",
       links: [] as any[], // Solves the 'href' property of never type error
     },
