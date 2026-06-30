@@ -20,7 +20,7 @@ export const DATA = {
   location: "Nagpur, India",
   locationLink: "https://www.google.com/maps/place/nagpur",
   description:
-    "I’m a full-stack developer passionate about building fast, scalable web apps with smooth user experiences. I love solving problems and delivering reliable digital solutions.",
+    "Full-stack developer specializing in high-performance React and Next.js applications. I create scalable, 60fps digital experiences with a focus on clean code and exceptional user interfaces.",
   summary:
     "Full-stack developer with a focus on creating high-performance web applications and clean, user-friendly interfaces. I enjoy turning complex ideas into simple, effective digital products.",
   avatarUrl: "/me.png",
@@ -66,13 +66,13 @@ export const DATA = {
     },
   },
   // Solves the AccordionItem 'company' property of never type error
-  work: [] as any[], 
+  work: [] as any[],
   education: [
     {
       school: "JDCOEM",
       href: "https://jdcoem.ac.in/",
       degree: "s1 s2 s3",
-      logoUrl: "./jdcoem.png",
+      logoUrl: "/jdcoem.png",
       start: "2023",
       end: "2028",
     },
@@ -99,8 +99,8 @@ export const DATA = {
           icon: <Icons.globe className="size-3" />,
         },
       ],
-      image: "./wire.png",
-      video: "./wireboard.mp4",
+      image: "/wire.png",
+      video: "/wireboard.mp4",
     },
     {
       title: "Football Game",
@@ -117,8 +117,8 @@ export const DATA = {
           icon: <Gamepad className="size-4" />,
         },
       ],
-      image: "./football.png",
-      video: "./foot.mp4",
+      image: "/football.png",
+      video: "/foot.mp4",
     },
   ],
   hackathons: [
@@ -128,7 +128,7 @@ export const DATA = {
       location: "YCC, Nagpur",
       description:
         "Developed a mobile application which delivered bedtime stories to children using augmented reality.",
-      image: "./ycc.png",
+      image: "/ycc.png",
       mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2019/mlh-trust-badge-2019-white.svg",
       links: [] as any[], // Solves the 'href' property of never type error
     },
@@ -136,9 +136,8 @@ export const DATA = {
       title: "HackWack Hackathon",
       dates: "Feb 2026 16-17",
       location: "SBJAIN, Nagpur",
-      description:
-        "Developed an google based pc sequrity manager ",
-      image: "./Untitled.png",
+      description: "Developed an google based pc sequrity manager ",
+      image: "/Untitled.png",
       mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2019/mlh-trust-badge-2019-white.svg",
       links: [] as any[], // Solves the 'href' property of never type error
     },

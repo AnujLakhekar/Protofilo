@@ -56,6 +56,25 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: DATA.name,
+  url: DATA.url,
+  image: DATA.avatarUrl,
+  jobTitle: "Full-Stack Developer",
+  description: DATA.description,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: DATA.location,
+  },
+  sameAs: [
+    DATA.contact.social.GitHub.url,
+    DATA.contact.social.LinkedIn.url,
+    DATA.contact.social.X.url,
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -67,9 +86,13 @@ export default function RootLayout({
         className={cn(
           "min-h-screen bg-background font-sans antialiased relative",
           geist.variable,
-          geistMono.variable
+          geistMono.variable,
         )}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ThemeProvider attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>
             <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
@@ -79,7 +102,8 @@ export default function RootLayout({
                 gridGap={2}
                 style={{
                   maskImage: "linear-gradient(to bottom, black, transparent)",
-                  WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
+                  WebkitMaskImage:
+                    "linear-gradient(to bottom, black, transparent)",
                 }}
               />
             </div>

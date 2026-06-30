@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import Markdown from "react-markdown";
 
@@ -16,9 +17,11 @@ function ProjectImage({ src, alt }: { src: string; alt: string }) {
   }
 
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
+      width={600}
+      height={300}
       className="w-full h-48 object-cover"
       onError={() => setImageError(true)}
     />
@@ -58,7 +61,7 @@ export function ProjectCard({
     <div
       className={cn(
         "flex flex-col h-full border border-border rounded-xl overflow-hidden hover:ring-2 cursor-pointer hover:ring-muted transition-all duration-200",
-        className
+        className,
       )}
     >
       <div className="relative shrink-0">
