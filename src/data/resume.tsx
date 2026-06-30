@@ -45,6 +45,12 @@ export const DATA = {
         icon: Icons.github,
         navbar: true,
       },
+      Discord: {
+        name: "Discord",
+        url: "https://discord.gg/TZgQvvTVxS",
+        icon: Icons.discord,
+        navbar: true,
+      },
       LinkedIn: {
         name: "LinkedIn",
         url: "https://www.linkedin.com/in/anuj-lakhekar-72a43033b/",
