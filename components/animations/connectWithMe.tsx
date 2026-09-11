@@ -1,31 +1,55 @@
 import React, { useState, Children, useRef, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
+interface RenderStepIndicatorProps {
+    step: number;
+    currentStep: number;
+    onStepClick: (clicked: number) => void;
+}
+
+interface StepperProps {
+    children: React.ReactNode;
+    initialStep?: number;
+    onStepChange?: (step: number) => void;
+    onFinalStepCompleted?: () => void;
+    stepCircleContainerClassName?: string;
+    stepContainerClassName?: string;
+    contentClassName?: string;
+    footerClassName?: string;
+    backButtonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+    nextButtonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+    backButtonText?: string;
+    nextButtonText?: string;
+    disableStepIndicators?: boolean;
+    renderStepIndicator?: (props: RenderStepIndicatorProps) => React.ReactNode;
+    [key: string]: any;
+}
+
 export default function Stepper({
-                                    children,
-                                    initialStep = 1,
-                                    onStepChange = () => {},
-                                    onFinalStepCompleted = () => {},
-                                    stepCircleContainerClassName = '',
-                                    stepContainerClassName = '',
-                                    contentClassName = '',
-                                    footerClassName = '',
-                                    backButtonProps = {},
-                                    nextButtonProps = {},
-                                    backButtonText = 'Back',
-                                    nextButtonText = 'Continue',
-                                    disableStepIndicators = false,
-                                    renderStepIndicator,
-                                    ...rest
-                                }) {
-    const [currentStep, setCurrentStep] = useState(initialStep);
-    const [direction, setDirection] = useState(0);
+    children,
+    initialStep = 1,
+    onStepChange = () => {},
+    onFinalStepCompleted = () => {},
+    stepCircleContainerClassName = '',
+    stepContainerClassName = '',
+    contentClassName = '',
+    footerClassName = '',
+    backButtonProps = {},
+    nextButtonProps = {},
+    backButtonText = 'Back',
+    nextButtonText = 'Continue',
+    disableStepIndicators = false,
+    renderStepIndicator,
+    ...rest
+}: StepperProps) {
+    const [currentStep, setCurrentStep] = useState<number>(initialStep);
+    const [direction, setDirection] = useState<number>(0);
     const stepsArray = Children.toArray(children);
     const totalSteps = stepsArray.length;
     const isCompleted = currentStep > totalSteps;
     const isLastStep = currentStep === totalSteps;
 
-    const updateStep = newStep => {
+    const updateStep = (newStep: number) => {
         setCurrentStep(newStep);
         if (newStep > totalSteps) onFinalStepCompleted();
         else onStepChange(newStep);
@@ -69,7 +93,7 @@ export default function Stepper({
                                     renderStepIndicator({
                                         step: stepNumber,
                                         currentStep,
-                                        onStepClick: clicked => {
+                                        onStepClick: (clicked: number) => {
                                             setDirection(clicked > currentStep ? 1 : -1);
                                             updateStep(clicked);
                                         }
@@ -79,7 +103,7 @@ export default function Stepper({
                                         step={stepNumber}
                                         disableStepIndicators={disableStepIndicators}
                                         currentStep={currentStep}
-                                        onClickStep={clicked => {
+                                        onClickStep={(clicked: number) => {
                                             setDirection(clicked > currentStep ? 1 : -1);
                                             updateStep(clicked);
                                         }}
@@ -129,8 +153,16 @@ export default function Stepper({
     );
 }
 
-function StepContentWrapper({ isCompleted, currentStep, direction, children, className }) {
-    const [parentHeight, setParentHeight] = useState(0);
+interface StepContentWrapperProps {
+    isCompleted: boolean;
+    currentStep: number;
+    direction: number;
+    children: React.ReactNode;
+    className?: string;
+}
+
+function StepContentWrapper({ isCompleted, currentStep, direction, children, className }: StepContentWrapperProps) {
+    const [parentHeight, setParentHeight] = useState<number>(0);
 
     return (
         <motion.div
@@ -141,7 +173,7 @@ function StepContentWrapper({ isCompleted, currentStep, direction, children, cla
         >
             <AnimatePresence initial={false} mode="sync" custom={direction}>
                 {!isCompleted && (
-                    <SlideTransition key={currentStep} direction={direction} onHeightReady={h => setParentHeight(h)}>
+                    <SlideTransition key={currentStep} direction={direction} onHeightReady={(h: number) => setParentHeight(h)}>
                         {children}
                     </SlideTransition>
                 )}
@@ -150,8 +182,14 @@ function StepContentWrapper({ isCompleted, currentStep, direction, children, cla
     );
 }
 
-function SlideTransition({ children, direction, onHeightReady }) {
-    const containerRef = useRef(null);
+interface SlideTransitionProps {
+    children: React.ReactNode;
+    direction: number;
+    onHeightReady: (height: number) => void;
+}
+
+function SlideTransition({ children, direction, onHeightReady }: SlideTransitionProps) {
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useLayoutEffect(() => {
         if (containerRef.current) onHeightReady(containerRef.current.offsetHeight);
@@ -174,7 +212,7 @@ function SlideTransition({ children, direction, onHeightReady }) {
 }
 
 const stepVariants = {
-    enter: dir => ({
+    enter: (dir: number) => ({
         x: dir >= 0 ? '-100%' : '100%',
         opacity: 0
     }),
@@ -182,17 +220,24 @@ const stepVariants = {
         x: '0%',
         opacity: 1
     },
-    exit: dir => ({
+    exit: (dir: number) => ({
         x: dir >= 0 ? '50%' : '-50%',
         opacity: 0
     })
 };
 
-export function Step({ children }) {
+export function Step({ children }: { children: React.ReactNode }) {
     return <div className="px-8">{children}</div>;
 }
 
-function StepIndicator({ step, currentStep, onClickStep, disableStepIndicators }) {
+interface StepIndicatorProps {
+    step: number;
+    currentStep: number;
+    onClickStep: (step: number) => void;
+    disableStepIndicators?: boolean;
+}
+
+function StepIndicator({ step, currentStep, onClickStep, disableStepIndicators }: StepIndicatorProps) {
     const status = currentStep === step ? 'active' : currentStep < step ? 'inactive' : 'complete';
 
     const handleClick = () => {
@@ -227,7 +272,7 @@ function StepIndicator({ step, currentStep, onClickStep, disableStepIndicators }
     );
 }
 
-function StepConnector({ isComplete }) {
+function StepConnector({ isComplete }: { isComplete: boolean }) {
     const lineVariants = {
         incomplete: { width: 0, backgroundColor: 'transparent' },
         complete: { width: '100%', backgroundColor: '#5227FF' }
@@ -246,7 +291,7 @@ function StepConnector({ isComplete }) {
     );
 }
 
-function CheckIcon(props) {
+function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg {...props} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
             <motion.path
@@ -259,4 +304,4 @@ function CheckIcon(props) {
             />
         </svg>
     );
-}
+                                      }
