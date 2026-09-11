@@ -2,7 +2,6 @@
 import React, {useState} from 'react'
 import Stepper, {Step} from "./animations/connectWithMe";
 
-
 const Coonnect = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -11,7 +10,7 @@ const Coonnect = () => {
         <div className="w-full max-w-lg mx-auto px-2 sm:px-4 md:px-8">
             <Stepper
                 initialStep={0}
-                onStepChange={(step) => console.log("Step:", step)}
+                onStepChange={() => console.log("Step changed")}
                 onFinalStepCompleted={() => {
                     console.log("Form Data:", { name, email, message });
                 }}
