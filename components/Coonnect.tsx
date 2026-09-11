@@ -9,14 +9,15 @@ const Coonnect = () => {
     return (
         <div className="w-full max-w-lg mx-auto px-2 sm:px-4 md:px-8">
             <Stepper
-                initialStep={0}
-                onStepChange={() => console.log("Step changed")}
-                onFinalStepCompleted={() => {
-                    console.log("Form Data:", { name, email, message });
-                }}
-                backButtonText="Previous"
-                nextButtonText="Next"
-            >
+  initialStep={0}
+  renderStepIndicator={(props) => <div>Step {props.currentStep}</div>}
+  onStepChange={() => console.log("Step changed")}
+  onFinalStepCompleted={() => {
+    console.log("Form Data:", { name, email, message });
+  }}
+  backButtonText="Previous"
+  nextButtonText="Next"
+>
                 {/* STEP 1 */}
                 <Step>
                     <h2 className="text-lg sm:text-xl font-bold p-2">Let’s Connect!</h2>
