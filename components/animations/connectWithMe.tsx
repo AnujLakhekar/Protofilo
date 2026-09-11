@@ -304,4 +304,4 @@ function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
             />
         </svg>
     );
-                                      }
+}
