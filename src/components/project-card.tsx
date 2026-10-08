@@ -3,10 +3,10 @@
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Play, Pause } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Markdown from "react-markdown";
 
 function ProjectImage({ src, alt }: { src: string; alt: string }) {
@@ -57,6 +57,24 @@ export function ProjectCard({
   links,
   className,
 }: Props) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const togglePlay = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!videoRef.current) return;
+
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
+
   return (
     <div
       className={cn(
@@ -64,30 +82,59 @@ export function ProjectCard({
         className,
       )}
     >
-      <div className="relative shrink-0">
-        <Link
-          href={href || "#"}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block"
-        >
-          {video ? (
+      <div className="relative shrink-0 group">
+        {video ? (
+          <div className="relative w-full h-48 overflow-hidden" onClick={togglePlay}>
             <video
+              ref={videoRef}
               src={video}
-              autoPlay
               loop
               muted
               playsInline
-              className="w-full h-48 object-cover"
+              controls={false}
+              onEnded={() => setIsPlaying(false)}
+              className="w-full h-48 object-cover cursor-pointer"
             />
-          ) : image ? (
+            {/* Centered Overlay Play/Pause Button */}
+            <button
+              type="button"
+              onClick={togglePlay}
+              aria-label={isPlaying ? "Pause video" : "Play video"}
+              className={cn(
+                "absolute inset-0 m-auto w-12 h-12 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:bg-black/80 z-10",
+                isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"
+              )}
+            >
+              {isPlaying ? (
+                <Pause className="w-5 h-5 fill-current" />
+              ) : (
+                <Play className="w-5 h-5 fill-current ml-0.5" />
+              )}
+            </button>
+          </div>
+        ) : image ? (
+          <Link
+            href={href || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
             <ProjectImage src={image} alt={title} />
-          ) : (
+          </Link>
+        ) : (
+          <Link
+            href={href || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
             <div className="w-full h-48 bg-muted" />
-          )}
-        </Link>
+          </Link>
+        )}
+
+        {/* Top-Right Badges Layered Above Video */}
         {links && links.length > 0 && (
-          <div className="absolute top-2 right-2 flex flex-wrap gap-2">
+          <div className="absolute top-2 right-2 flex flex-wrap gap-2 z-20">
             {links.map((link, idx) => (
               <Link
                 href={link.href}
@@ -108,6 +155,7 @@ export function ProjectCard({
           </div>
         )}
       </div>
+
       <div className="p-6 flex flex-col gap-3 flex-1">
         <div className="flex items-start justify-between gap-2">
           <div className="flex flex-col gap-1">

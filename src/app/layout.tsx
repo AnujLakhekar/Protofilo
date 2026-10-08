@@ -5,7 +5,7 @@ import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 
 const geist = Geist({
@@ -98,7 +98,7 @@ export default function RootLayout({
             <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
               <FlickeringGrid
                 className="h-full w-full"
-                squareSize={2}
+                squareSize={6}
                 gridGap={2}
                 style={{
                   maskImage: "linear-gradient(to bottom, black, transparent)",

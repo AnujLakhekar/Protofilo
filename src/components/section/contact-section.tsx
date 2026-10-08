@@ -11,7 +11,7 @@ export default function ContactSection() {
       <div className="absolute inset-0 top-0 left-0 right-0 h-1/2 rounded-xl overflow-hidden">
         <FlickeringGrid
           className="h-full w-full"
-          squareSize={2}
+          squareSize={10}
           gridGap={2}
           style={{
             maskImage: "linear-gradient(to bottom, black, transparent)",
