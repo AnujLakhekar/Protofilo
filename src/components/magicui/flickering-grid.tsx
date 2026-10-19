@@ -109,7 +109,7 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
         squares[i] = Math.random() * maxOpacity
       }
 
-      return { cols, rows, squares, dpr }
+      return { width, height, cols, rows, squares, dpr }
     },
     [squareSize, gridGap, maxOpacity]
   )
@@ -165,6 +165,8 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
 
     let animationFrameId: number
     let gridParams: ReturnType<typeof setupCanvas>
+    let lastFrameTime = 0
+    const frameInterval = 1000 / 24
 
     const updateCanvasSize = () => {
       const newWidth = width || container.clientWidth
@@ -175,18 +177,22 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
 
     updateCanvasSize()
 
-    let lastTime = 0
     const animate = (time: number) => {
-      if (!isInView) return
+      if (!isInView || document.visibilityState === "hidden") return
 
-      const deltaTime = (time - lastTime) / 1000
-      lastTime = time
+      if (time - lastFrameTime < frameInterval) {
+        animationFrameId = requestAnimationFrame(animate)
+        return
+      }
+
+      const deltaTime = (time - lastFrameTime) / 1000
+      lastFrameTime = time
 
       updateSquares(gridParams.squares, deltaTime)
       drawGrid(
         ctx,
-        canvas.width,
-        canvas.height,
+        gridParams.width,
+        gridParams.height,
         gridParams.cols,
         gridParams.rows,
         gridParams.squares,
@@ -210,12 +216,23 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
 
     intersectionObserver.observe(canvas)
 
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && isInView) {
+        lastFrameTime = performance.now()
+        animationFrameId = requestAnimationFrame(animate)
+      }
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange)
+
     if (isInView) {
+      lastFrameTime = performance.now()
       animationFrameId = requestAnimationFrame(animate)
     }
 
     return () => {
       cancelAnimationFrame(animationFrameId)
+      document.removeEventListener("visibilitychange", handleVisibilityChange)
       resizeObserver.disconnect()
       intersectionObserver.disconnect()
     }
@@ -238,4 +255,3 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
     </div>
   )
 }
-

@@ -14,7 +14,11 @@ const nextConfig = {
           },
           {
             key: "X-Frame-Options",
-            value: "DENY",
+            value: "SAMEORIGIN", // Allows iframe embedding within the same origin (localhost:3000)
+          },
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'self';", // Modern replacement for X-Frame-Options
           },
           {
             key: "Referrer-Policy",

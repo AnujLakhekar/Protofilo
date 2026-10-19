@@ -110,7 +110,7 @@ export const DATA = {
     },
     {
       title: "Football Game",
-      href: "https://foot-and-ball.vercel.app/",
+      href: "/games/soccer-game",
       dates: "current",
       active: true,
       description:

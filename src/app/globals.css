@@ -137,6 +137,30 @@ video {
     backface-visibility: hidden;
 }
 
+body:has(.soccer-game) .site-navbar {
+    bottom: 0;
+    height: 5rem;
+    padding-top: 1.5rem;
+    pointer-events: auto;
+}
+
+body:has(.soccer-game) .site-navbar > * {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition:
+        opacity 180ms ease,
+        transform 180ms ease;
+}
+
+body:has(.soccer-game) .site-navbar:hover > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+body:has(.soccer-game) .flickering-grid {
+    display: none;
+}
+
 /* Shiki dual theme support */
 .shiki,
 .shiki span {
