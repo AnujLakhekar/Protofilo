@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500" viewBox="0 0 500 500">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #070802;
+        stroke-width: 372.3px;
+      }
+
+      .cls-2, .cls-3 {
+        font-size: 71.999px;
+      }
+
+      .cls-3 {
+        fill: #fff;
+        font-family: "AMS Diya";
+      }
+    </style>
+    <path id="text-path"/>
+  </defs>
+  <ellipse class="cls-1" cx="251.5" cy="252" rx="246.5" ry="248"/>
+  <text class="cls-2" transform="matrix(2.433, 0, 0, 2.433, 0, 0)"><textPath xlink:href="#text-path"><tspan class="cls-3">An]</tspan></textPath></text>
+</svg>

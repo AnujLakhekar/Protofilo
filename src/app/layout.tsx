@@ -54,6 +54,9 @@ export const metadata: Metadata = {
     google: "",
     yandex: "",
   },
+  icons: {
+    icon: "/logo.svg",
+  }
 };
 
 const jsonLd = {
